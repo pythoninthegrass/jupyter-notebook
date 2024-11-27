@@ -46,11 +46,6 @@ jobs:
       fail-fast: false  # continue building even if one image fails
       matrix:
         image:
-          # TODO: enable docker-stacks-foundation
-          # * refactor base-notebook to use forked docker-stacks-foundation
-          # - context: images/docker-stacks-foundation
-          #   dockerfile: images/docker-stacks-foundation/Dockerfile
-          #   name: docker-stacks-foundation
           - context: images/base-notebook
             dockerfile: images/base-notebook/Dockerfile
             name: jupyter-notebook
@@ -118,7 +113,9 @@ jobs:
           context: ${{ matrix.image.context }}
           file: ${{ matrix.image.dockerfile }}
           push: ${{ github.event_name != 'pull_request' }}
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          provenance: false
           cache-from: type=registry,ref=${{ env.REGISTRY_URL }}/${{ env.REGISTRY_USER }}/${{ matrix.image.name }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY_URL }}/${{ env.REGISTRY_USER }}/${{ matrix.image.name }}:buildcache,mode=max
