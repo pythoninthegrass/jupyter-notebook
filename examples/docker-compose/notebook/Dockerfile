@@ -1,8 +1,6 @@
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
+# syntax=docker/dockerfile:1.7.0
 
-# Pick your favorite docker-stacks image
-FROM quay.io/jupyter/minimal-notebook
+FROM ghcr.io/pythoninthegrass/jupyter-notebook:latest
 
 USER root
 

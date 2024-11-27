@@ -1,0 +1,16 @@
+services:
+  jupyter-notebook:
+    image: ghcr.io/pythoninthegrass/jupyter-notebook:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-notebook
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    working_dir: /home/jovyan
+    healthcheck:
+      test: ["CMD", "/etc/jupyter/docker_healthcheck.py"]
+      interval: 3s
+      timeout: 1s
+      retries: 3
+      start_period: 3s
