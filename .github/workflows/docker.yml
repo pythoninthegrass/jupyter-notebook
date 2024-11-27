@@ -86,8 +86,8 @@ jobs:
       - name: Set image name
         id: image_name
         run: |
-          if [ -n "${{ env.IMAGE }}" ]; then
-            IMAGE="${{ env.IMAGE }}"
+          if [ -n "${{ vars.IMAGE }}" ]; then
+            IMAGE="${{ vars.IMAGE }}"
           else
             IMAGE=$(grep "LABEL org.opencontainers.image.title" Dockerfile | cut -d'"' -f2)
           fi
